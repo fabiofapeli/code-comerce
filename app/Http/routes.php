@@ -11,12 +11,22 @@
 |
 */
 
+Route::group(['prefix'=>'admin'],function(){
+    Route::get('products','AdminProductsController@index');
+    Route::get('categories',['as'=>'gerenciar-produtos','uses'=>'AdminCategoriesController@index']);
+});
+
+Route::get('category/{category}',function(\App\Category $category){
+    echo $category->name;
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('admin/categories','AdminCategoriesController@index');
-Route::get('admin/products','AdminProductsController@index');
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
