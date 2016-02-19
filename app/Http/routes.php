@@ -12,12 +12,21 @@
 */
 
 Route::group(['prefix'=>'admin'],function(){
-    Route::get('products','AdminProductsController@index');
-    Route::get('categories',['as'=>'gerenciar-produtos','uses'=>'AdminCategoriesController@index']);
-});
 
-Route::get('category/{category}',function(\App\Category $category){
-    echo $category->name;
+
+    Route::group(['prefix'=>'products'],function() {
+        Route::get('',['as'=>'admin.product','uses'=> 'AdminProductsController@index']);
+        Route::get('create', ['as'=>'admin.product.create','uses'=>'AdminProductsController@create']);
+        Route::get('edit/{id}',['as'=>'admin.product.edit','uses'=>'AdminProductsController@edit']);
+        Route::get('destroy/{id}',['as'=>'admin.product.destroy','uses'=>'AdminProductsController@destroy']);
+    });
+
+    Route::group(['prefix'=>'categories'],function() {
+        Route::get('',['as'=>'admin.category','uses'=> 'AdminCategoriesController@index']);
+        Route::get('create',['as'=>'admin.category.create','uses'=> 'AdminCategoriesController@create']);
+        Route::get('edit/{id}',['as'=>'admin.category.edit','uses'=>'AdminCategoriesController@edit']);
+        Route::get('destroy/{id}',['as'=>'admin.category.destroy','uses'=>'AdminCategoriesController@destroy']);
+    });
 });
 
 Route::get('/', function () {

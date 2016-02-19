@@ -1,6 +1,6 @@
 <h1>Categories</h1>
 <ul>
     @foreach($categories as $category)
-        <li>{{$category->name}}</li>
+        <li>{{$category->id}} - {{$category->name}}</li>
     @endforeach
 </ul>

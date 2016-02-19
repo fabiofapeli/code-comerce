@@ -21,6 +21,25 @@ class AdminCategoriesController extends Controller
         $categories=$this->categories->all();
         return view('admin.category',compact('categories'));
     }
+
+    public function create(){
+        return "<h1>Create Categories</h1>";
+    }
+
+    public function edit($id){
+
+        if($categories=$this->categories->find($id)){
+            return "<h1>Edit category ".$categories->name."</h1>";
+        }
+        return 'Category not found';
+    }
+
+    public function destroy($id){
+        if($categories=$this->categories->find($id)) {
+            return "<h1>Delete category " . $categories->name . "</h1>";
+        }
+        return 'Category not found';
+    }
 }
 
 
