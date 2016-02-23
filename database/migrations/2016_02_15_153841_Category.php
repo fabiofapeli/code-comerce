@@ -13,7 +13,7 @@ class Category extends Migration
     public function up()
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id')->unsigned();
 			$table->string('name',80);
 			$table->text('description');
 			$table->timestamps();
