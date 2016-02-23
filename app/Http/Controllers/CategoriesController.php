@@ -38,7 +38,7 @@ class CategoriesController extends Controller
 
     public function update(Requests\CategoryRequest $request){
         $this->category->find($request->id)->update($request->all());
-        return redirect()->route('products');
+        return redirect()->route('categories');
     }
 
     public function destroy($id){
