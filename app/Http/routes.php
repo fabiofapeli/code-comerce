@@ -32,7 +32,16 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('{id}/destroy',['as'=>'products.destroy','uses'=>'ProductsController@destroy']);
         Route::get('{id}/edit',['as'=>'products.edit','uses'=>'ProductsController@edit']);
         Route::put('update',['as'=>'products.update','uses'=>'ProductsController@update']);
+
+            Route::group(['prefix'=>'{id}'],function (){
+                Route::get('images',['as'=>'images','uses'=>'ProductsController@images']);
+                Route::get('images/create',['as'=>'images.create','uses'=>'ProductsController@createImage']);
+                Route::post('images/store',['as'=>'images.store','uses'=>'ProductsController@storeImage']);
+            });
+
         });
+
+
 
     });
 
