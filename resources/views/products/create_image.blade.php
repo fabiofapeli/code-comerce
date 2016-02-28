@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <a href="#" class="btn btn-default">Back</a><br />
+        <a href="{{ route('images',['id'=>$product->id]) }}" class="btn btn-default">Back</a><br />
         <h1>Upload Image</h1>
         @if($errors->any())
             <ul class="alert">

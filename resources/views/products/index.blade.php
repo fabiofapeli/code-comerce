@@ -20,7 +20,7 @@
                 <td>{{str_limit($product->description,30)}}</td>
                 <td>{{$product->price}}</td>
                 <td>{{$product->category->name}}</td>
-                <td><a href="{{ route('products.destroy',['id'=>$product->id]) }}">Delete</a> | <a href="{{ route('products.edit',['id'=>$product->id]) }}">Edit</a> </td>
+                <td><a href="{{ route('products.destroy',['id'=>$product->id]) }}">Delete</a> | <a href="{{ route('products.edit',['id'=>$product->id]) }}">Edit</a> | <a href="{{ route('images',['id'=>$product->id]) }}">Images</a></td>
             </tr>
             @endforeach
         </table>

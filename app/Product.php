@@ -15,4 +15,17 @@ class Product extends Model
     public function images(){
         return $this->hasMany('App\ProductImage');
     }
+
+    public function tags(){
+        return $this->belongsToMany('App\tag','product_tags');
+    }
+
+    public function getTagListAttribute(){
+       $tagsName=$this->tags->lists('name')->toArray();
+       return implode(', ',$tagsName);
+    }
+
+    public function scopeFeatured(){
+        return $this->where('featured','=','1');
+    }
 }

@@ -5,20 +5,21 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Product;
 use App\ProductImage;
-use Illuminate\Http\Request;
+use App\ProductTag;
+use App\Tag;
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
 class ProductsController extends Controller
 {
     private $product;
+    private $tagModel;
 
-    public function __construct(Product $product)
+    public function __construct(Product $product,Tag $tagModel)
     {
         $this->product=$product;
+        $this->tagModel=$tagModel;
     }
 
     public function index(){
@@ -33,7 +34,8 @@ class ProductsController extends Controller
     }
 
     public function store(Requests\ProductRequest $request){
-        $this->product->create($request->all());
+        $affectedProduct=$this->product->create($request->all());
+        $this->setTagsId($request->TagList,$affectedProduct);
         return redirect()->route('products');
     }
 
@@ -44,12 +46,27 @@ class ProductsController extends Controller
     }
 
     public function update(Requests\ProductRequest $request){
-        $this->product->find($request->id)->update($request->all());
+        $affectedProduct=$this->product->find($request->id);
+        $affectedProduct->update($request->all());
+        $this->setTagsId($request->TagList,$affectedProduct);
         return redirect()->route('products');
     }
 
-    public function destroy($id){
+    private function setTagsId($requestTags,$affectedProduct){
+        $tagSync=[];
+        if($requestTags!=''){
+            $tagList=array_filter(array_map('trim',explode(',',$requestTags)));
+            foreach($tagList as $tag){
+                $tagSync[]=$this->tagModel->firstOrCreate(['name'=>$tag])->id;
+            }
+        }
+        $affectedProduct->tags()->sync($tagSync);
+
+    }
+
+    public function destroy($id,ProductTag $product_tag){
         $this->product->find($id)->delete();
+        $product_tag->where('product_id','=',$id)->delete();
         return redirect()->route('products');
     }
 
@@ -63,7 +80,7 @@ class ProductsController extends Controller
         return view('products.create_image',compact('product'));
     }
 
-    public function storeImage(Request $request,$id,ProductImage $productImage){
+    public function storeImage(Requests\ProductImageRequest $request,$id,ProductImage $productImage){
         $file=$request->file('image');
         $extension=$file->getClientOriginalExtension();
         $image=$productImage::create(['product_id'=>$id,'extension'=>$extension]);
@@ -71,4 +88,15 @@ class ProductsController extends Controller
         // Criar pasta uploads em public e ajustar path da entrada public em config/filesystems.php
         return redirect()->route('images',['id'=>$id]);
     }
+
+    public function destroyImage($id,ProductImage $ProductImage){
+        $image=$ProductImage->find($id);
+        $product_id=$image->product_id;
+        $image_path=$image->id.'.'.$image->extension;
+        if(file_exists(public_path('/uploads').$image_path)) Storage::disk('public_local')->delete($image_path);
+        $image->delete($id);
+        return redirect()->route('images',['id'=>$product_id]);
+    }
+
+
 }

@@ -13,6 +13,7 @@
 
 
 Route::group(['middleware' => ['web']], function () {
+    Route::get('/','storeController@index');
 
     Route::group(['prefix'=>'admin','where'=>['id'=>'[0-9]+']],function(){
 
@@ -37,23 +38,14 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('images',['as'=>'images','uses'=>'ProductsController@images']);
                 Route::get('images/create',['as'=>'images.create','uses'=>'ProductsController@createImage']);
                 Route::post('images/store',['as'=>'images.store','uses'=>'ProductsController@storeImage']);
+                Route::get('images/destroy',['as'=>'images.destroy','uses'=>'ProductsController@destroyImage']);
             });
 
         });
 
-
-
     });
 
 });
-
-
-
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 
 
 

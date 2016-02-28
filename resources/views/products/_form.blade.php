@@ -22,6 +22,12 @@
 {!! Form::text('price',null,['class'=>'form-control']) !!}
 </div>
 
+<!-- Tags Form Input -->
+<div class="form-group">
+{!! Form::label('TagList','Tags:') !!}
+{!! Form::textarea('TagList',null,['class'=>'form-control']) !!}
+</div>
+
 <!-- Featured Form Input -->
 <div class="form-group">
 {!! Form::label('featured','Featured:') !!}
