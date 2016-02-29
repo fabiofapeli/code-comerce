@@ -36,9 +36,6 @@
 					<li><a href="{{ route('products') }}">Products</a></li>
 					<li><a href="{{ route('categories') }}">Categories</a></li>
 				</ul>
-				<ul class="nav navbar-nav alert-danger" style="margin: 20px;padding: 5px">
-					<li>Nota ao tutor: Estou usando o namespace original App, pois ao fazer a conversão para CodeCommerce o sistema deixou de funcionar</li>
-				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					@if (Auth::guest())
 						<li><a href="{{ url('/auth/login') }}">Login</a></li>

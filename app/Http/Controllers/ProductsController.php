@@ -93,7 +93,7 @@ class ProductsController extends Controller
         $image=$ProductImage->find($id);
         $product_id=$image->product_id;
         $image_path=$image->id.'.'.$image->extension;
-        if(file_exists(public_path('/uploads').$image_path)) Storage::disk('public_local')->delete($image_path);
+        if(file_exists(public_path('uploads\\').$image_path)) Storage::disk('public_local')->delete($image_path);
         $image->delete($id);
         return redirect()->route('images',['id'=>$product_id]);
     }
