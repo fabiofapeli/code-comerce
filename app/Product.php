@@ -28,4 +28,12 @@ class Product extends Model
     public function scopeFeatured(){
         return $this->where('featured','=','1');
     }
+
+    public function scopeRecommend(){
+        return $this->where('recommend','=','1');
+    }
+
+    public function scopeOfCategory($query,$id){
+        return $query->where('category_id','=',$id);
+    }
 }

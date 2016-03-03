@@ -13,7 +13,8 @@
 
 
 Route::group(['middleware' => ['web']], function () {
-    Route::get('/','storeController@index');
+    Route::get('','storeController@index');
+    Route::get('category/{id}',['as'=>'store.category','uses'=>'storeController@category']);
 
     Route::group(['prefix'=>'admin','where'=>['id'=>'[0-9]+']],function(){
 
