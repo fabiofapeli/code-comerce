@@ -13,8 +13,23 @@
 
 
 Route::group(['middleware' => ['web']], function () {
-    Route::get('','storeController@index');
+
+    Route::get('login', 'PostController@login'); // Redireciona para view de login
+    Route::get('auth/register', 'PostController@register');
+    Route::post('auth/login', 'Auth\AuthController@postLogin');
+    Route::get('auth/logout', 'PostController@logout');
+    Route::post('auth/register', 'Auth\AuthController@postRegister');
+    Route::get('password/email', 'PostController@password');
+    Route::post('password/email', 'Auth\PasswordController@postEmail');
+
+    Route::get('',['as'=>'store.index','uses'=>'storeController@index']);
     Route::get('category/{id}',['as'=>'store.category','uses'=>'storeController@category']);
+    Route::get('product/{id}',['as'=>'store.product','uses'=>'storeController@product']);
+    Route::get('tag/{id}',['as'=>'store.tag','uses'=>'storeController@tag']);
+    Route::get('cart',['as'=>'cart','uses'=>'CartController@index']);
+    Route::get('cart/{id}',['as'=>'cart.add','uses'=>'CartController@add']);
+    Route::get('cart/destroy/{id}',['as'=>'cart.destroy','uses'=>'CartController@destroy']);
+    Route::get('checkout/placeOrder',['as'=>'checkout.place','uses'=>'CheckoutController@place']);
 
     Route::group(['prefix'=>'admin','where'=>['id'=>'[0-9]+']],function(){
 

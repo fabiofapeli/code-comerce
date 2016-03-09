@@ -8,14 +8,14 @@
         <div class="features_items"><!--features_items-->
             <h2 class="title text-center">Em destaque</h2>
 
-            @include('store._products',['products'=>$products_featured]);
+            @include('store._products',['products'=>$products_featured])
 
         </div><!--features_items-->
 
         <div class="features_items"><!--recommended-->
             <h2 class="title text-center">Recomendados</h2>
 
-            @include('store._products',['products'=>$products_recommend]);
+            @include('store._products',['products'=>$products_recommend])
         </div><!--recommended-->
     </div>
 @endsection

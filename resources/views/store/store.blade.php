@@ -54,7 +54,7 @@
                             <li><a href="#"><i class="fa fa-user"></i> Minha conta</a></li>
                             <li><a href="checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                             <li><a href="cart"><i class="fa fa-shopping-cart"></i> Carrinho</a></li>
-                            <li><a href="auth/login"><i class="fa fa-lock"></i> Login</a></li>
+                            <li><a href="admin/products"><i class="fa fa-lock"></i> Login</a></li>
                         </ul>
                     </div>
                 </div>

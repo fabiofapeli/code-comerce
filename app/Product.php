@@ -36,4 +36,8 @@ class Product extends Model
     public function scopeOfCategory($query,$id){
         return $query->where('category_id','=',$id);
     }
+
+    public function items(){
+        return $this->hasMany('App\OrderItem');
+    }
 }
