@@ -15,8 +15,8 @@ return [
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'smtp'),
-
+   // 'driver' => env('MAIL_DRIVER', 'smtp'),
+    'driver' => 'log',
     /*
     |--------------------------------------------------------------------------
     | SMTP Host Address
@@ -107,5 +107,7 @@ return [
     */
 
     'sendmail' => '/usr/sbin/sendmail -bs',
+
+    'pretend' => false,
 
 ];

@@ -47,7 +47,7 @@
                     <p>{{$product->description}}</p>
                                 <span>
                                     <span>R$ {{number_format($product->price,2)}}</span>
-                                    {!! Form::submit('Adicionar ao carrinho',['class'=>'btn btn-success','style'=>'width:250px']) !!}
+                                    {!! Form::submit('Adicionar ao carrinho',['class'=>'btn btn-default add-to-cart','style'=>'width:280px']) !!}
 
                      {!! Form::close() !!}
                                 </span>

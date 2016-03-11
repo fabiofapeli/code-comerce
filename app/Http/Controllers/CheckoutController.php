@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Events\CheckoutEvent;
 use App\Http\Requests;
 use App\Order;
 use App\OrderItem;
@@ -27,6 +28,8 @@ class CheckoutController extends Controller
                $order->item()->create(['product_id'=>$k,'price'=>$item['price'],'qtd'=>$item['qtd']]);
                // pode ser usado  $orderItem->create porém deve se passar o 'order_id'=>$order->id
            }
+
+           event(new CheckoutEvent(Auth::user(),$order,$cart));
 
            $cart->clear();
 

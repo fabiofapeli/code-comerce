@@ -2,22 +2,33 @@
 
 namespace App\Events;
 
-use App\Events\Event;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class CheckoutEvent extends Event
 {
     use SerializesModels;
 
-    /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    private $user;
+    private $order;
+    private $cart;
+
+    public function __construct($user,$order,$cart)
     {
-        //blá blá bla
+       $this->user=$user;
+       $this->order=$order;
+       $this->cart=$cart;
+    }
+
+    public function getUser(){
+        return $this->user;
+    }
+
+    public function getOrder(){
+        return $this->order;
+    }
+
+    public function getCart(){
+        return $this->cart;
     }
 
     /**
