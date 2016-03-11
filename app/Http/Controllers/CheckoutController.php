@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Http\Requests;
 use App\Order;
 use App\OrderItem;
@@ -10,10 +11,6 @@ use Illuminate\Support\Facades\Session;
 
 class CheckoutController extends Controller
 {
-   public function __construct()
-   {
-       $this->middleware('auth');
-   }
 
     public function place(Order $orderModel,OrderItem $orderItem){
        if(!(Session::has('cart'))){
@@ -21,20 +18,23 @@ class CheckoutController extends Controller
        }
 
        $cart=Session::get('cart');
-
+        $categories=Category::all();
        if($cart->getTotal()>0){
 
            $order=$orderModel->Create(['user_id'=>Auth::user()->id,'total' => $cart->getTotal(),'status'=>0]);
 
-           foreach($cart->all() as $k=>$items){
-               $order->items()->create(['product_id'=>$k,'price'=>$items['price'],'qtd'=>$items['qtd']]);
+           foreach($cart->all() as $k=>$item){
+               $order->item()->create(['product_id'=>$k,'price'=>$item['price'],'qtd'=>$item['qtd']]);
                // pode ser usado  $orderItem->create porém deve se passar o 'order_id'=>$order->id
            }
 
-           dd($order->items);
+           $cart->clear();
+
+           return view('store.checkout',compact('order','categories'));
 
        }
 
+        return view('store.checkout',['order'=>'empty','categories'=>$categories]);
 
    }
 }

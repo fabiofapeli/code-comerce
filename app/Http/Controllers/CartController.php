@@ -22,32 +22,23 @@ class CartController extends Controller
         return view('store.cart',['cart'=>Session::get('cart')]);
     }
 
-    public function add($id,Product $product,Cart $cart){
-
-        $cart = $this->getCart();
-
-        $product=$product->find($id);
-        $cart->add($id,$product->name,$product->price);
+    public function add(Requests\CartRequest $request,Product $product,Cart $cart){
+        $product_id=$request->product_id;
+        $cart = $cart->getCart();
+        $cart->remove($product_id);
+        $qtd=$request->quantidade;
+        $cart = $cart->getCart();
+        $product=$product->find($product_id);
+        $cart->add($product_id,$product->name,$product->price,$qtd);
         Session::set('cart',$cart);
         return redirect()->route('cart');
     }
 
-    public function destroy($id){
-        $cart = $this->getCart();
+    public function destroy($id,Cart $cart){
+        $cart = $cart->getCart();
         $cart->remove($id);
         Session::set('cart',$cart);
         return redirect()->route('cart');
     }
 
-    private function getCart()
-    {
-
-        if (Session::has('cart')) {
-            $cart = Session::get('cart');
-        } else {
-            $cart = $this->cart;
-        }
-        return $cart;
-
-    }
 }

@@ -27,11 +27,16 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('product/{id}',['as'=>'store.product','uses'=>'storeController@product']);
     Route::get('tag/{id}',['as'=>'store.tag','uses'=>'storeController@tag']);
     Route::get('cart',['as'=>'cart','uses'=>'CartController@index']);
-    Route::get('cart/{id}',['as'=>'cart.add','uses'=>'CartController@add']);
+    Route::post('cart',['as'=>'cart.add','uses'=>'CartController@add']);
     Route::get('cart/destroy/{id}',['as'=>'cart.destroy','uses'=>'CartController@destroy']);
-    Route::get('checkout/placeOrder',['as'=>'checkout.place','uses'=>'CheckoutController@place']);
 
-    Route::group(['prefix'=>'admin','where'=>['id'=>'[0-9]+']],function(){
+
+    Route::group(['middleware'=>'auth'],function (){
+        Route::get('checkout/placeOrder',['as'=>'checkout.place','uses'=>'CheckoutController@place']);
+        Route::get('account/orders',['as'=>'account.orders','uses'=>'AccountController@orders']);
+    });
+
+    Route::group(['prefix'=>'admin','middleware'=>'auth','where'=>['id'=>'[0-9]+']],function(){
 
         Route::group(['prefix'=>'categories'],function (){
             Route::get('',['as'=>'categories','uses'=>'CategoriesController@index']);

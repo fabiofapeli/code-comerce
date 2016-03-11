@@ -12,7 +12,7 @@
                             <td class="price">Valor</td>
                             <td class="price">Qtd</td>
                             <td class="price">Total</td>
-                            <td width="190"></td>
+                            <td colspan="2"></td>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,6 +36,9 @@
                             <td class="cart_total">
                                  <p class="cart_total_price">R$ {{$item['price']*$item['qtd']}}</p>
                             </td>
+                            <td class="cart_total">
+                                <a href="{{route('store.product',['id'=>$k])}}" class="btn btn-success">Editar</a>
+                            </td>
                             <td class="cart_delete">
                                  <a href="{{route('cart.destroy',['id'=>$k])}}" class="cart_quantity_delete">Delete</a>
                             </td>
@@ -47,16 +50,18 @@
                             </td>
                         </tr>
                     @endforelse
+                    @if(count($cart->all())>0)
                     <tr class="cart_menu">
                         <td colspan="4">
                         </td>
                         <td>
                             Total: R$ {{$cart->getTotal()}}
                         </td>
-                        <td>
+                        <td colspan="2">
                             <a href="{{route('checkout.place')}}" class="btn btn-success">Fechar a conta</a>
                         </td>
                     </tr>
+                        @endif
                     </tbody>
                 </table>
             </div>

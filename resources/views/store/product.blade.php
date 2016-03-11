@@ -31,14 +31,25 @@
                 <div class="product-information"><!--/product-information-->
 
                     <h2>{{$category->name}} :: {{$product->name}}</h2>
+                    {!! Form::open(['method'=>'post','route'=>'cart.add']) !!}
+                    {{ Form::hidden('product_id', $product->id) }}
+                    <p>
+                    @foreach($errors->all() as $erro)
+                        <li>{{ $erro }}</li>
+                        @endforeach
+                        <!-- Quantidade Form Input -->
+                        <div class="form-group">
+                        {!! Form::label('quantidade','Quantidade:') !!}
+                        {!! Form::text('quantidade',$quantidade,['class'=>'form-control','style'=>'width:40px']) !!}
+                        </div>
+                    </p>
 
                     <p>{{$product->description}}</p>
                                 <span>
                                     <span>R$ {{number_format($product->price,2)}}</span>
-                                        <a href="{{route('cart.add',['id'=>$product->id])}}" class="btn btn-fefault cart">
-                                            <i class="fa fa-shopping-cart"></i>
-                                            Adicionar no Carrinho
-                                        </a>
+                                    {!! Form::submit('Adicionar ao carrinho',['class'=>'btn btn-success','style'=>'width:250px']) !!}
+
+                     {!! Form::close() !!}
                                 </span>
                     <p>
                     @foreach($product->tags as $tag)

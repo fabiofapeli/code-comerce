@@ -16,6 +16,11 @@ class Product extends Model
         return $this->hasMany('App\ProductImage');
     }
 
+    public function cart()
+    {
+        return $this->hasMany('App\Cart');
+    }
+
     public function tags(){
         return $this->belongsToMany('App\tag','product_tags');
     }
@@ -37,7 +42,7 @@ class Product extends Model
         return $query->where('category_id','=',$id);
     }
 
-    public function items(){
+    public function item(){
         return $this->hasMany('App\OrderItem');
     }
 }

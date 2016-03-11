@@ -13,11 +13,11 @@ class OrderItem extends Model
         'qtd'
     ];
 
-    public function orders(){
+    public function order(){
         return $this->belongsTo('App\Order');
     }
 
-    public function products(){
+    public function product(){
         return $this->belongsTo('App\Product');
     }
 }

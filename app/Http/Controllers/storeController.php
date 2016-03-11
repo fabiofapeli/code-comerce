@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Cart;
 use App\Category;
 use App\Http\Requests;
 use App\Product;
 use App\Tag;
+use Illuminate\Support\Facades\Session;
 
 class storeController extends Controller
 {
@@ -23,11 +25,16 @@ class storeController extends Controller
         return view('store.category',compact('products_category','categories','category'));
     }
 
-    public function product($id,Product $product,Category $category){
+    public function product($id,Product $product,Category $category,Cart $cart){
+        $quantidade=1;
+        if(Session::has('cart')){
+            $cart=$cart->getCart($id);
+            $quantidade=is_array($cart)?$cart['qtd']:1;
+        }
         $categories=$category->all();
         $product=$product->find($id);
         $category=$category->find($product->category_id);
-        return view('store.product',compact('product','categories','category'));
+        return view('store.product',compact('product','categories','category','quantidade'));
     }
 
     public function tag($id,Tag $tag,Category $category){
