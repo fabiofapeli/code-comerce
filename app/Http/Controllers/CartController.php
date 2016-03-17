@@ -24,10 +24,10 @@ class CartController extends Controller
 
     public function add(Requests\CartRequest $request,Product $product,Cart $cart){
         $product_id=$request->product_id;
-        $cart = $cart->getCart();
+        $cart = $this->getCart();
         $cart->remove($product_id);
         $qtd=$request->quantidade;
-        $cart = $cart->getCart();
+        $cart = $this->getCart();
         $product=$product->find($product_id);
         $cart->add($product_id,$product->name,$product->price,$qtd);
         Session::set('cart',$cart);
@@ -35,10 +35,28 @@ class CartController extends Controller
     }
 
     public function destroy($id,Cart $cart){
-        $cart = $cart->getCart();
+        $cart = $this->getCart();
         $cart->remove($id);
         Session::set('cart',$cart);
         return redirect()->route('cart');
+    }
+	
+	private function getCart($product_id=0)
+    {
+        if (Session::has('cart')) {
+            $cart = Session::get('cart');
+        } else {
+            $cart = $this->cart;
+        }
+
+        if($product_id==0){
+            return $cart;
+        }
+        else{
+            return isset($cart->items[$product_id])?$cart->items[$product_id]:0;
+        }
+
+
     }
 
 }

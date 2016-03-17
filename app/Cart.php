@@ -48,23 +48,7 @@ class Cart
         return [];
     }
 
-    public function getCart($product_id=0)
-    {
-        if (Session::has('cart')) {
-            $cart = Session::get('cart');
-        } else {
-            $cart = $this->cart;
-        }
-
-        if($product_id==0){
-            return $cart;
-        }
-        else{
-            return isset($cart->items[$product_id])?$cart->items[$product_id]:0;
-        }
-
-
-    }
+    
 
 
 //all

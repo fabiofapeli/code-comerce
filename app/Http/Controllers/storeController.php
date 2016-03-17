@@ -25,12 +25,15 @@ class storeController extends Controller
         return view('store.category',compact('products_category','categories','category'));
     }
 
-    public function product($id,Product $product,Category $category,Cart $cart){
-        $quantidade=1;
+    public function product($id,Product $product,Category $category,Cart $cart){   	
         if(Session::has('cart')){
-            $cart=$cart->getCart($id);
-            $quantidade=is_array($cart)?$cart['qtd']:1;
+            $cart = Session::get('cart');
+			$cart=$cart->all();
+            $quantidade=isset($cart[$id]['qtd'])?$cart[$id]['qtd']:1;
         }
+		else{
+			$quantidade=1;
+		}
         $categories=$category->all();
         $product=$product->find($id);
         $category=$category->find($product->category_id);
