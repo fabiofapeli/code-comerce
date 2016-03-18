@@ -11,6 +11,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
+
 class ProductsController extends Controller
 {
     private $product;

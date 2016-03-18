@@ -11,10 +11,11 @@
 |
 */
 
-
 Route::group(['middleware' => ['web']], function () {
+	
+	Route::get('test','CheckoutController@test');
 
-    Route::get('login', 'PostController@login'); // Redireciona para view de login
+    Route::get('login', ['as'=>'login','uses'=>'PostController@login']); // Redireciona para view de login
     Route::get('auth/register', 'PostController@register');
     Route::post('auth/login', 'Auth\AuthController@postLogin');
     Route::get('auth/logout', 'PostController@logout');
@@ -36,7 +37,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('account/orders',['as'=>'account.orders','uses'=>'AccountController@orders']);
     });
 
-    Route::group(['prefix'=>'admin','middleware'=>'auth','where'=>['id'=>'[0-9]+']],function(){
+    Route::group(['prefix'=>'admin','middleware'=>['auth.admin','auth'],'where'=>['id'=>'[0-9]+']],function(){
+    	
 
         Route::group(['prefix'=>'categories'],function (){
             Route::get('',['as'=>'categories','uses'=>'CategoriesController@index']);
