@@ -38,7 +38,12 @@ Route::group(['middleware' => ['web']], function () {
     });
 
     Route::group(['prefix'=>'admin','middleware'=>['auth.admin','auth'],'where'=>['id'=>'[0-9]+']],function(){
-    	
+    			
+		Route::group(['prefix'=>'orders'],function (){
+            Route::get('',['as'=>'orders','uses'=>'OrdersController@index']);
+			Route::get('{id}/edit',['as'=>'orders.edit','uses'=>'OrdersController@edit']);
+			Route::put('update',['as'=>'orders.update','uses'=>'OrdersController@update']);
+        });
 
         Route::group(['prefix'=>'categories'],function (){
             Route::get('',['as'=>'categories','uses'=>'CategoriesController@index']);

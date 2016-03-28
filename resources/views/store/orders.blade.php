@@ -21,7 +21,7 @@
                                 @endforeach
                         </ul></td>
                     <td>{{$order->total}}</td>
-                    <td>{{$order->status}}</td>
+                    <td>{{ $status[$order->status] }}</td>
                 </tr>
                     @endforeach
             </table>

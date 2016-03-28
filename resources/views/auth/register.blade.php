@@ -29,11 +29,65 @@
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">E-Mail Address</label>
+							<label class="col-md-4 control-label">E-Mail</label>
 							<div class="col-md-6">
 								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
 							</div>
 						</div>
+						
+						
+						<div class="form-group">
+							<label class="col-md-4 control-label">Address</label>
+							<div class="col-md-6">
+								<input type="text" class="form-control" name="address" value="{{ old('address') }}">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-md-4 control-label">Number</label>
+							<div class="col-md-6">
+								<input type="text" class="form-control" name="number" value="{{ old('number') }}">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-md-4 control-label">District</label>
+							<div class="col-md-6">
+								<input type="text" class="form-control" name="district" value="{{ old('district') }}">
+							</div>
+						</div>
+						
+						
+						<div class="form-group">
+							<label class="col-md-4 control-label">City</label>
+							<div class="col-md-6">
+								<input type="text" class="form-control" name="city" value="{{ old('city') }}">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-md-4 control-label">State</label>
+							<div class="col-md-6">
+								<input type="text" class="form-control" name="state" value="{{ old('state') }}">
+							</div>
+						</div>
+						
+						
+						<div class="form-group">
+							<label class="col-md-4 control-label">Zip code</label>
+							<div class="col-md-6">
+								<input type="text" class="form-control" name="zipcode" value="{{ old('zipcode') }}">
+							</div>
+						</div>
+						
+						
+						<div class="form-group">
+							<label class="col-md-4 control-label">Phone number</label>
+							<div class="col-md-6">
+								<input type="text" class="form-control" name="phone" value="{{ old('phone') }}">
+							</div>
+						</div>
+						
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">Password</label>

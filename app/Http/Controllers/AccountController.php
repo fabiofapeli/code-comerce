@@ -11,6 +11,7 @@ class AccountController extends Controller
     public function orders(){
        $user_id=Auth::user()->id;
        $orders=Order::where('user_id','=',$user_id)->get();
-      return view('store.orders',compact('orders'));
+		$status=config('constants.orders.status');
+      return view('store.orders',compact('orders','status'));
     }
 }
