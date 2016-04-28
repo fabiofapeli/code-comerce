@@ -13,7 +13,7 @@
 
 Route::group(['middleware' => ['web']], function () {
 	
-	Route::get('test','CheckoutController@test');
+	Route::get('retorno_pagseguro','CheckoutController@retorno_pagseguro');
 
     Route::get('login', ['as'=>'login','uses'=>'PostController@login']); // Redireciona para view de login
     Route::get('auth/register', 'PostController@register');
@@ -35,6 +35,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['middleware'=>'auth'],function (){
         Route::get('checkout/placeOrder',['as'=>'checkout.place','uses'=>'CheckoutController@place']);
         Route::get('account/orders',['as'=>'account.orders','uses'=>'AccountController@orders']);
+        Route::get('checkout/pay/{id}',['as'=>'checkout.pay','uses'=>'CheckoutController@pay']);
     });
 
     Route::group(['prefix'=>'admin','middleware'=>['auth.admin','auth'],'where'=>['id'=>'[0-9]+']],function(){

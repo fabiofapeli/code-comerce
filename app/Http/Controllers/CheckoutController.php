@@ -9,14 +9,13 @@ use App\Order;
 use App\OrderItem;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use PHPSC\PagSeguro\Requests\Checkout\CheckoutService;
-use PHPSC\PagSeguro\Items\item;
 
 
 class CheckoutController extends Controller
 {
 
     public function place(Order $orderModel,OrderItem $orderItem){
+      $id=0;
        if(!(Session::has('cart'))){
            return false;
        }
@@ -32,26 +31,29 @@ class CheckoutController extends Controller
                // pode ser usado  $orderItem->create porÃ©m deve se passar o 'order_id'=>$order->id
            }
 
+           $id=$order->id;
+
            event(new CheckoutEvent(Auth::user(),$order,$cart));
 
            $cart->clear();
 
-           return view('store.checkout',compact('order','categories'));
-
        }
 
-        return view('store.checkout',['order'=>'empty','categories'=>$categories]);
+        return redirect()->route('checkout.pay',['$id'=>$id]);
 
    }
-	
-	public function test(CheckoutService $checkoutService){
-		$checkout = $checkoutService->createCheckoutBuilder()
-            ->addItem(new Item(1, 'Televisão LED 500', 8999.99))
-            ->addItem(new Item(2, 'Video-game mega ultra blaster', 799.99))
-            ->getCheckout();
 
-        $response = $checkoutService->checkout($checkout);
+   public function pay($id,Order $orderModel){
+      $order = $orderModel->find($id);
+      $categories=Category::all();
+      if(!empty($order)){
+        return view('store.checkout',compact('order','categories'));
+      }
+      return view('store.checkout',['order'=>'empty','categories'=>$categories]);
+   }
+   
+   public function pagseguro(){
+   	
+   }
 
-       return redirect($response->getRedirectionUrl());
-	}
 }

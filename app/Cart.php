@@ -45,7 +45,7 @@ class Cart
     }
 
     public function find($id){
-        return [];
+        return $this->items[$id];
     }
 
     

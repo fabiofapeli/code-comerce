@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="col-sm-9 padding-right">
+    <div class="col-sm-12 padding-right">
             <h3>Meus pedidos</h3>
             <table class="table">
                 <tr>
@@ -21,7 +21,11 @@
                                 @endforeach
                         </ul></td>
                     <td>{{$order->total}}</td>
-                    <td>{{ $status[$order->status] }}</td>
+                    <td>{{ $status[$order->status] }}
+                        @if($order->status==0)
+                        (<a href="{{route('checkout.pay',['$id'=>$order->id])}}">Realizar pagamento</a>)
+                        @endif
+                    </td>
                 </tr>
                     @endforeach
             </table>
