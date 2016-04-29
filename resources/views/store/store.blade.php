@@ -44,7 +44,7 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <a href="/"><span>CodeCommerce</span></a>
+                        <a href="{{ url('index.php') }}"><span>Minha Loja</span></a>
                     </div>
 
                 </div>
